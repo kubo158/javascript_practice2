@@ -84,8 +84,8 @@
 
     removeBtn.addEventListener('click', () => {
       //要素が無くなった時は、カウントを0に戻したい。
-      // if(removeBtn === null) {
-      //   countUpValue = 0;}
+      if(tr === null) {
+        countUpValue = 0;}
       const element1 = document.querySelector('.addTr');
         element1.parentNode.removeChild(element1);
     });
