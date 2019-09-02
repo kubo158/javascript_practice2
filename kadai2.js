@@ -10,26 +10,120 @@
   const addButton = document.getElementById('addButton');
 
   //１．<iuput>タグを取得する
-  const todoContent = document.getElementById('todoContent');
+  const inputContent = document.getElementById('inputContent');
 
   //２．<tbody>タグを取得する
   const todoList = document.getElementById('todoList');
 
 
-  // id初期値
-  let num = 0;
+  const todos = [];
 
-
-
-  //追加ボタンを押す
+  //　＊＊＊＊＊　追加ボタンイベントを押す　＊＊＊＊＊
   addButton.addEventListener('click', () => {
 
-    //上記、生成した要素の配列化
-    const todos = [];
-    const task = {};
+    const num = todos.forEach((index) => {
+    });
+    const inputContentValue = inputContent.value;
+    const switchBtn ='作業中';
+    const dlt = '削除';
+
+    let task = {
+      id: num,
+      comment: inputContentValue,
+      status: switchBtn,
+      remove: dlt
+    };
+
+    todos.push(task);
+
+    console.log(todos);
 
 
-    //ラジオボタンを押す
+    //▲▲▲▲　tr エレメントを新規作成(ただ生成するだけ)　▲▲▲▲
+    let tr = document.createElement('tr');
+    tr.classList.add('addTr');
+
+    //---- td idエレメントを新規作成 ----
+    let td = document.createElement('td');
+    td.classList.add('id');
+    //tdの中に入れたいモノをセット
+      td.textContent = (num);
+
+    //生成したtdをtrにセット
+    tr.appendChild(td);
+    //---- td idエレメント終わり ----
+
+
+    //---- td inputした内容を新規作成 ----
+    td = document.createElement('td');
+    td.classList.add('comment');
+    //tdの中に入れたいモノをセット
+    if (inputContentValue == '') {
+      return false;
+    } else {
+    td.textContent = (inputContentValue);
+    }
+    //生成したtdをtrにセット
+    tr.appendChild(td);
+    //---- td 入力した内容終わり ----
+
+
+    //---- td 作業中ボタンを新規作成 ----
+    td = document.createElement('td');
+    td.classList.add('state');
+    //ボタンをセット
+    const btn = document.createElement('button');
+    btn.textContent = (switchBtn);
+    td.appendChild(btn);
+    tr.appendChild(td);
+    //---- td 作業中ボタン終わり ----
+
+
+  //●●●●　作業中イベントボタン　●●●●
+    btn.addEventListener('click', () => {
+      switch (switchBtn) {
+        case '作業中':
+          btn.textContent = '完了';
+          todos.splice(2, 1, '完了');
+              console.log(todos);
+          break;
+        case '完了':
+          btn.textContent = '作業中';
+          todos.splice(2, 1, '作業中');
+              console.log(todos);
+          break;
+      }
+    });
+  //●●●●　作業中イベントボタン終わり　●●●●
+
+
+    //---- td 削除を新規作成 ----
+    td = document.createElement('td');
+    td.classList.add('remove');
+    const removeBtn = document.createElement('button');
+    removeBtn.textContent = (dlt);
+    td.appendChild(removeBtn);
+    tr.appendChild(td);
+    //---- td 削除ボタン終わり ----
+
+    todoList.appendChild(tr);
+    //▲▲▲▲　エレメントをtbody内に追加　▲▲▲▲
+
+
+    //●●●●　削除イベントボタン　●●●●
+    removeBtn.addEventListener('click', () => {
+      const element1 = document.querySelector('.addTr');
+      element1.parentNode.removeChild(element1);
+      todos.length = 0;
+      console.log(todos);
+    });
+    //●●●●　削除イベントボタン終わり　●●●●
+
+
+
+
+    //＊＊＊＊＊　ラジオボタンを押した時の関数を作る　＊＊＊＊＊
+
     radioAll.addEventListener('change', () => {   //全て
     });
 
@@ -41,89 +135,20 @@
     radioComplete.addEventListener('change', () => {   //完了
       const complete = todos.filter(x => x.status === '完了')
       console.log(complete);
-
     });
-
-    //Inputnの入力値を取得
-    const todoContentValue = todoContent.value;
-
-
-    task.id = num;
-    task.comment = todoContentValue;
-    task.status = '作業中';
-    todos.push(task);
-    console.log(task);
+    //＊＊＊＊＊　ラジオボタン終わり　＊＊＊＊＊
 
 
 
-    if (todoContentValue == '') {
-      return false;
-    }
-
-    //tr エレメントを新規作成(ただ生成するだけ)
-    let tr = document.createElement('tr');
-    tr.classList.add('addTr');
-
-    //td idエレメントを新規作成(ただ生成するだけ)
-    let td = document.createElement('td');
-    td.classList.add('id');
-    //tdの中に入れたいモノをセット
-    td.textContent = (num);
-    num++;
-    //生成したtdをtrにセット
-    tr.appendChild(td);
-
-
-    //td エレメントを新規作成(ただ生成するだけ)
-    td = document.createElement('td');
-    td.classList.add('comment');
-    //tdの中に入れたいモノをセット
-    td.textContent = (todoContentValue);
-    //生成したtdをtrにセット
-    tr.appendChild(td);
-
-
-
-    td = document.createElement('td');
-    td.classList.add('state');
-    //ボタンをセット
-    const btn = document.createElement('button');
-    btn.textContent = (task.status);
-    td.appendChild(btn);
-    tr.appendChild(td);
-
-
-    btn.addEventListener('click', () => {
-      switch (task.status) {
-        case '作業中':
-          task.status = '完了';
-          console.log(task);
-          btn.textContent = (task.status);
-          break;
-        case '完了':
-          task.status = '作業中';
-          btn.textContent = (task.status);
-          break;
-      }
-    });
-
-
-
-
-    td = document.createElement('td');
-    const removeBtn = document.createElement('button');
-    removeBtn.textContent = ('削除');
-    td.appendChild(removeBtn);
-    tr.appendChild(td);
-
-    //tr エレメントをtbody内に追加(ここではじめて表示される)
-    todoList.appendChild(tr);
-    removeBtn.addEventListener('click', () => {
-      const element1 = document.querySelector('.addTr');
-      element1.parentNode.removeChild(element1);
-  });
 
   });
+  //　＊＊＊＊＊　追加ボタン終わり　＊＊＊＊＊
+
+
+
+
+
+
 
 
   // use strictの終わり
