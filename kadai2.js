@@ -39,14 +39,12 @@
 
       //▲▲▲▲　tr エレメントを新規作成(ただ生成するだけ)　▲▲▲▲
       let tr = document.createElement('tr');
-      tr.classList.add('addTr');
+      tr.classList.add('work');
 
       //---- td idエレメントを新規作成 ----
       let td = document.createElement('td');
-      td.classList.add('id');
       //tdの中に入れたいモノをセット
       td.textContent = id;
-
       //生成したtdをtrにセット
       tr.appendChild(td);
       //---- td idエレメント終わり ----
@@ -54,7 +52,6 @@
 
       //---- td inputした内容を新規作成 ----
       td = document.createElement('td');
-      td.classList.add('comment');
       //tdの中に入れたいモノをセット
       if (comment == '') {
         return false;
@@ -68,8 +65,6 @@
 
       //---- td 作業中ボタンを新規作成 ----
       td = document.createElement('td');
-      td.classList.add('state');
-
       //ボタンをセット
       const btn = document.createElement('button');
       btn.textContent = (switchBtn);
@@ -85,14 +80,18 @@
           case '作業中':
             switchBtn = '完了';
             btn.textContent = (switchBtn);
-              if (task.switchBtn === '作業中') {
-                task.switchBtn = '完了'
-              }
+                  tr.classList.remove('work');
+                  tr.classList.add('done');
+            if (task.switchBtn === '作業中') {
+              task.switchBtn = '完了'
+            }
             console.log(todos);
             break;
           case '完了':
             switchBtn = '作業中';
             btn.textContent = (switchBtn);
+            tr.classList.remove('done');
+            tr.classList.add('work');
             if (task.switchBtn === '完了') {
               task.switchBtn = '作業中'
             }
@@ -105,7 +104,6 @@
 
       //---- td 削除を新規作成 ----
       td = document.createElement('td');
-      td.classList.add('remove');
       const removeBtn = document.createElement('button');
       removeBtn.textContent = (dlt);
       td.appendChild(removeBtn);
@@ -135,32 +133,49 @@
       const radioComplete = document.getElementById('radioComplete');
       //＊＊＊＊＊　ラジオボタンを押した時の関数を作る　＊＊＊＊＊
 
+      const workList = document.querySelectorAll('.work');
+      const doneList = document.querySelectorAll('.done');
+
+
       radioAll.addEventListener('change', () => { //全て
+        workList.forEach((workList) => {
+          workList.style.display = "block";
+        });
+        doneList.forEach((doneList) => {
+          doneList.style.display = "block";
+        });
       });
 
       radioDoing.addEventListener('change', () => { //作業中
         const progress = todos.filter(x => x.switchBtn === '作業中');
-        console.log(progress);
-      });
 
-      radioComplete.addEventListener('change', () => { //完了
-        const complete = todos.filter(x => x.switchBtn === '完了');
-        console.log(complete);
-      });
-      //＊＊＊＊＊　ラジオボタン終わり　＊＊＊＊＊
-
-
-
-
+        workList.forEach((workList) => {
+          workList.style.display = "block";
+        });
+        doneList.forEach((doneList) => {
+          doneList.style.display = "none";
+        });
+      console.log(progress);
     });
-    //　＊＊＊＊＊　追加ボタン終わり　＊＊＊＊＊
 
+    radioComplete.addEventListener('change', () => { //完了
+      const complete = todos.filter(x => x.switchBtn === '完了');
 
+      workList.forEach((workList) => {
+        workList.style.display = "none";
+      });
+      doneList.forEach((doneList) => {
+        doneList.style.display = "block";
+      });
+      console.log(complete);
+    });
+    //＊＊＊＊＊　ラジオボタン終わり　＊＊＊＊＊
 
-
-
-    //＊＊＊＊＊　Dom終わり　＊＊＊＊＊
   });
+  //　＊＊＊＊＊　追加ボタン終わり　＊＊＊＊＊
 
-  // use strictの終わり
+  //＊＊＊＊＊　Dom終わり　＊＊＊＊＊
+});
+
+// use strictの終わり
 }
