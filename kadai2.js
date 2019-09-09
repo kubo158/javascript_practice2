@@ -11,11 +11,11 @@
     //２．<tbody>タグを取得する
     const todoList = document.getElementById('todoList');
 
-    const todos = [];
 
     //追加ボタンの要素を取得
     const addButton = document.getElementById('addButton');
 
+    const todos = [];
 
     //＊＊＊＊＊　追加ボタンイベントを押す　＊＊＊＊＊
     addButton.addEventListener('click', () => {
@@ -35,6 +35,9 @@
       todos.push(task);
 
       console.log(todos);
+      // todos.forEach((item, index) => {
+      //   console.log(`${index}: ${item}`);
+      // });
 
 
       //▲▲▲▲　tr エレメントを新規作成(ただ生成するだけ)　▲▲▲▲
@@ -80,8 +83,8 @@
           case '作業中':
             switchBtn = '完了';
             btn.textContent = (switchBtn);
-                  tr.classList.remove('work');
-                  tr.classList.add('done');
+            tr.classList.remove('work');
+            tr.classList.add('done');
             if (task.switchBtn === '作業中') {
               task.switchBtn = '完了'
             }
@@ -133,49 +136,78 @@
       const radioComplete = document.getElementById('radioComplete');
       //＊＊＊＊＊　ラジオボタンを押した時の関数を作る　＊＊＊＊＊
 
-      const workList = document.querySelectorAll('.work');
-      const doneList = document.querySelectorAll('.done');
+
 
 
       radioAll.addEventListener('change', () => { //全て
-        workList.forEach((workList) => {
-          workList.style.display = "block";
-        });
-        doneList.forEach((doneList) => {
-          doneList.style.display = "block";
+
+        function allForEach() {
+          const workList = document.querySelectorAll('.work');
+          const doneList = document.querySelectorAll('.done');
+          workList.forEach((workList) => {
+            workList.style.display = "";
+          });
+          doneList.forEach((doneList) => {
+            doneList.style.display = "";
+          });
+        }
+
+        allForEach();
+
+        btn.addEventListener('click', (e) => {
+          allForEach();
         });
       });
 
       radioDoing.addEventListener('change', () => { //作業中
         const progress = todos.filter(x => x.switchBtn === '作業中');
 
-        workList.forEach((workList) => {
-          workList.style.display = "block";
+        function workForEach() {
+          const workList = document.querySelectorAll('.work');
+          const doneList = document.querySelectorAll('.done');
+          workList.forEach((workList) => {
+            workList.style.display = "";
+          });
+          doneList.forEach((doneList) => {
+            doneList.style.display = "none";
+          });
+        }
+
+        workForEach();
+
+        btn.addEventListener('click', (e) => {
+          workForEach();
         });
-        doneList.forEach((doneList) => {
-          doneList.style.display = "none";
+        console.log(progress);
+      });
+
+      radioComplete.addEventListener('change', () => { //完了
+        const complete = todos.filter(x => x.switchBtn === '完了');
+
+        function doneForEach() {
+          const workList = document.querySelectorAll('.work');
+          const doneList = document.querySelectorAll('.done');
+          workList.forEach((workList) => {
+            workList.style.display = "none";
+          });
+          doneList.forEach((doneList) => {
+            doneList.style.display = "";
+          });
+        }
+        doneForEach();
+
+        btn.addEventListener('click', (e) => {
+          doneForEach();
         });
-      console.log(progress);
-    });
-
-    radioComplete.addEventListener('change', () => { //完了
-      const complete = todos.filter(x => x.switchBtn === '完了');
-
-      workList.forEach((workList) => {
-        workList.style.display = "none";
+        console.log(complete);
       });
-      doneList.forEach((doneList) => {
-        doneList.style.display = "block";
-      });
-      console.log(complete);
-    });
-    //＊＊＊＊＊　ラジオボタン終わり　＊＊＊＊＊
+      //＊＊＊＊＊　ラジオボタン終わり　＊＊＊＊＊
 
+    });
+    //　＊＊＊＊＊　追加ボタン終わり　＊＊＊＊＊
+
+    //＊＊＊＊＊　Dom終わり　＊＊＊＊＊
   });
-  //　＊＊＊＊＊　追加ボタン終わり　＊＊＊＊＊
 
-  //＊＊＊＊＊　Dom終わり　＊＊＊＊＊
-});
-
-// use strictの終わり
+  // use strictの終わり
 }
