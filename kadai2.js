@@ -72,13 +72,18 @@ const createTodoList = function(){
 
 
   //---- td 作業中ボタンを新規作成 ----
-  createWorkBtn();
+  const btn = createWorkBtn();
+  td = document.createElement('td');
+  td.appendChild(btn);
   tr.appendChild(td);
   //---- td 作業中ボタン終わり ----
 
 
   //---- td 削除を新規作成 ----
-  createRemoveBtn();
+  const removeBtn = createRemoveBtn();
+  // createRemoveBtn();
+  td = document.createElement('td');
+  td.appendChild(removeBtn);
   tr.appendChild(td);
   //---- td 削除ボタン終わり ----
 
@@ -90,12 +95,10 @@ const createTodoList = function(){
 
     //○○○○○○○○  作業中ボタン作成処理  ○○○○○○○○//
     const createWorkBtn = function(){
-      td = document.createElement('td');
       //ボタンをセット
       const btn = document.createElement('button');
       btn.textContent = (switchBtn);
       // btn.classList.add('change');
-      td.appendChild(btn);
 
       //●●●●　作業中イベントボタン　●●●●
       btn.addEventListener('click', (e) => {
@@ -132,12 +135,9 @@ const createTodoList = function(){
 
     //○○○○○○○○  削除ボタン作成処理  ○○○○○○○○//
     const createRemoveBtn = function(){
-
-      td = document.createElement('td');
       const removeBtn = document.createElement('button');
       removeBtn.textContent = (dlt);
       removeBtn.classList.add('remove');
-      td.appendChild(removeBtn);
 
       //●●●●　削除イベントボタン　●●●●
       removeBtn.addEventListener('click', (e) => {
@@ -149,6 +149,7 @@ const createTodoList = function(){
         console.log(todos);
       });
       //●●●●　削除イベントボタン終わり　●●●●
+
         return removeBtn;
 }
     //○○○○○○○○  削除ボタン終わり  ○○○○○○○○//
@@ -161,6 +162,11 @@ const createTodoList = function(){
       createTodoList();
       todoList.appendChild(tr);
       //▲▲▲▲　エレメントをtbody内に追加　▲▲▲▲
+
+
+
+
+
 
 
 
