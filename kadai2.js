@@ -87,7 +87,7 @@ const createTodoList = function(){
   tr.appendChild(td);
   //---- td 削除ボタン終わり ----
 
-  return task;
+  return tr;
 }
     //○○○○○○○○  Todoボタン終わり  ○○○○○○○○//
 
