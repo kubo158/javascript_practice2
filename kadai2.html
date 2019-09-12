@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Todo</title>
+</head>
+<body>
+  <h1>Todoリスト</h1>
+
+  <div>
+	<input type="radio" name="swich-display" id="radioAll" checked="checked">全て
+	<input type="radio" name="swich-display" id="radioDoing">作業中
+	<input type="radio" name="swich-display" id="radioComplete">完了
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>コメント</th>
+        <th>状態</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody id="todoList">
+    </tbody>
+  </table>
+
+  <h2>新規タスクの追加</h2>
+  <input type="text" id="inputContent">
+  <button id="addButton">追加</button>
+
+  <script src="kadai2.js"></script>
+</body>
+</html>
